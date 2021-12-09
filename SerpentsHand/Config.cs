@@ -28,8 +28,8 @@ namespace SerpentsHand
 			{ ItemType.Ammo9x19, 120 },
 			{ ItemType.Ammo556x45, 60 },
 			{ ItemType.Ammo762x39, 60 },
-			{ ItemType.Ammo44cal, 30 },
-			{ ItemType.Ammo12gauge, 32 },
+			{ ItemType.Ammo44cal, 8 },
+			{ ItemType.Ammo12gauge, 14 },
 		}; 
 
 		[Description("The change for Serpents Hand to spawn instead of Chaos.")]

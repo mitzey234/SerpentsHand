@@ -21,9 +21,8 @@ namespace SerpentsHand.API
 			EventHandlers.CreateSquad(size);
 		}
 
-		public static List<Player> GetSHPlayers()
-		{
-			return EventHandlers.shPlayers.Select(x => Player.Get(x)).ToList();
+		public static List<Player> GetSHPlayers () {
+			return EventHandlers.shPlayers.Where(x => true).ToList();
 		}
 	}
 }

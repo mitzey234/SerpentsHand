@@ -1,6 +1,7 @@
 ﻿using Exiled.API.Features;
 using Exiled.Loader;
 using HarmonyLib;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace SerpentsHand
@@ -13,6 +14,8 @@ namespace SerpentsHand
         private Harmony hInstance;
 
         public static bool isScp035 = false;
+
+        public static List<int> FFGrants = new List<int>();
 
         public override void OnEnabled()
         {
@@ -32,7 +35,6 @@ namespace SerpentsHand
             Exiled.Events.Handlers.Player.EnteringPocketDimension += EventHandlers.OnPocketDimensionEnter;
             Exiled.Events.Handlers.Player.FailingEscapePocketDimension += EventHandlers.OnPocketDimensionDie;
             Exiled.Events.Handlers.Player.EscapingPocketDimension += EventHandlers.OnPocketDimensionExit;
-            Exiled.Events.Handlers.Player.Dying += EventHandlers.OnPlayerDying;
             Exiled.Events.Handlers.Player.Hurting += EventHandlers.OnPlayerHurt;
             Exiled.Events.Handlers.Server.EndingRound += EventHandlers.OnCheckRoundEnd;
             Exiled.Events.Handlers.Player.ChangingRole += EventHandlers.OnSetRole;
@@ -42,8 +44,9 @@ namespace SerpentsHand
             Exiled.Events.Handlers.Player.ActivatingGenerator += EventHandlers.OnActivatingGenerator;
             Exiled.Events.Handlers.Player.EnteringFemurBreaker += EventHandlers.OnFemurEnter;
             Exiled.Events.Handlers.Player.Died += EventHandlers.OnPlayerDeath;
-            Exiled.Events.Handlers.Player.Shooting += EventHandlers.OnShoot;
+            Exiled.Events.Handlers.Player.Shot += EventHandlers.OnShoot;
             Exiled.Events.Handlers.Player.Spawning += EventHandlers.OnSpawning;
+            Exiled.Events.Handlers.Server.RestartingRound += EventHandlers.OnRoundRestart;
         }
 
         public override void OnDisabled()
@@ -55,7 +58,6 @@ namespace SerpentsHand
             Exiled.Events.Handlers.Player.EnteringPocketDimension -= EventHandlers.OnPocketDimensionEnter;
             Exiled.Events.Handlers.Player.FailingEscapePocketDimension -= EventHandlers.OnPocketDimensionDie;
             Exiled.Events.Handlers.Player.EscapingPocketDimension -= EventHandlers.OnPocketDimensionExit;
-            Exiled.Events.Handlers.Player.Dying -= EventHandlers.OnPlayerDying;
             Exiled.Events.Handlers.Player.Hurting -= EventHandlers.OnPlayerHurt;
             Exiled.Events.Handlers.Server.EndingRound -= EventHandlers.OnCheckRoundEnd;
             Exiled.Events.Handlers.Player.ChangingRole -= EventHandlers.OnSetRole;
@@ -65,8 +67,9 @@ namespace SerpentsHand
             Exiled.Events.Handlers.Player.ActivatingGenerator -= EventHandlers.OnActivatingGenerator;
             Exiled.Events.Handlers.Player.EnteringFemurBreaker -= EventHandlers.OnFemurEnter;
             Exiled.Events.Handlers.Player.Died -= EventHandlers.OnPlayerDeath;
-            Exiled.Events.Handlers.Player.Shooting -= EventHandlers.OnShoot;
+            Exiled.Events.Handlers.Player.Shot -= EventHandlers.OnShoot;
             Exiled.Events.Handlers.Player.Spawning -= EventHandlers.OnSpawning;
+            Exiled.Events.Handlers.Server.RestartingRound -= EventHandlers.OnRoundRestart;
 
             hInstance.UnpatchAll();
             EventHandlers = null;

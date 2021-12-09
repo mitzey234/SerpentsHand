@@ -8,18 +8,23 @@ namespace SerpentsHand
 {
     using Exiled.API.Enums;
 	using Exiled.API.Features.Items;
-	using Exiled.Loader;
+    using Exiled.API.Interfaces;
+    using Exiled.Loader;
 	using InventorySystem.Items.Firearms.Attachments;
-	using System.Reflection;
+    using System;
+    using System.Reflection;
 
 	partial class EventHandlers
     {
         internal static void SpawnPlayer(Player player, bool full = true)
         {
-            shPlayers.Add(player.Id);
+            shPlayers.Add(player);
             PositionsToSpawn.Add(player, shSpawnPos);
             player.SetRole(RoleType.Tutorial);
             player.Broadcast(10, SerpentsHand.instance.Config.SpawnBroadcast);
+
+            Log.Info("Serpants count: " + shPlayers.Count);
+
             if (full)
             {
                 Timing.CallDelayed(1f, () =>
@@ -91,39 +96,42 @@ namespace SerpentsHand
             Cassie.Message(SerpentsHand.instance.Config.EntryAnnouncement, true, true);
         }
 
-        internal static void GrantFF()
-		{
-            foreach (int id in shPlayers)
-            {
-                Player p = Player.Get(id);
-                if (p != null) p.IsFriendlyFireEnabled = true;
-            }
-
-            foreach (int id in SerpentsHand.instance.EventHandlers.shPocketPlayers)
-            {
-                Player p = Player.Get(id);
-                if (p != null) p.IsFriendlyFireEnabled = true;
-            }
-
-            shPlayers.Clear();
-            SerpentsHand.instance.EventHandlers.shPocketPlayers.Clear();
+        internal static List<Player> GetSHPlayers()
+        {
+            return shPlayers;
         }
 
-        private Player TryGet035()
+        private List<Player> TryGet035()
         {
-            Player scp035 = null;
+            List<Player> scp035 = null;
             if (SerpentsHand.isScp035)
-                scp035 = (Player)Loader.Plugins.First(pl => pl.Name == "scp035").Assembly.GetType("scp035.API.Scp035Data").GetMethod("GetScp035", BindingFlags.Public | BindingFlags.Static).Invoke(null, null);
+            {
+                try
+                {
+                    scp035 = (List<Player>)Loader.Plugins.First(pl => pl.Name == "scp035").Assembly.GetType("scp035.API.Scp035Data").GetMethod("GetScp035s", BindingFlags.Public | BindingFlags.Static).Invoke(null, null);
+                }
+                catch (Exception e)
+                {
+                    Log.Debug("Failed getting 035s: " + e);
+                    scp035 = new List<Player>();
+                }
+            } else
+            {
+                scp035 = new List<Player>();
+            }
             return scp035;
         }
 
         private int CountRoles(Team team)
         {
-            Player scp035 = null;
+            List<Player> scp035 = null;
 
             if (SerpentsHand.isScp035)
             {
                 scp035 = TryGet035();
+            } else
+            {
+                scp035 = new List<Player>();
             }
 
             int count = 0;
@@ -131,7 +139,7 @@ namespace SerpentsHand
             {
                 if (pl.Team == team)
                 {
-                    if (scp035 != null && pl.Id == scp035.Id) continue;
+                    if (scp035 != null && scp035.Select(s=>s.Id).ToList().Contains(pl.Id)) continue;
                     count++;
                 }
             }
