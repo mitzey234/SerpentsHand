@@ -7,7 +7,11 @@ namespace SerpentsHand.Patches
 	[HarmonyPatch(typeof(PlayableScps.Scp939), nameof(PlayableScps.Scp939.ServerAttack))]
 	class Scp939DamagePatch
 	{
-		public static bool Prefix(GameObject target) => !EventHandlers.shPlayers.Contains(Player.Get(target)) || (EventHandlers.shPlayers.Contains(Player.Get(target)) && SerpentsHand.instance.Config.FriendlyFire) || (EventHandlers.RoundEnded && SerpentsHand.instance.Config.EndRoundFriendlyFire);
+		public static bool Prefix(GameObject target)
+		{
+			if (target == null || Player.Get(target) == null) return true;
+			return !EventHandlers.shPlayers.Contains(Player.Get(target)) || (EventHandlers.shPlayers.Contains(Player.Get(target)) && SerpentsHand.instance.Config.FriendlyFire);
+		}
 	}
 
 	[HarmonyPatch(typeof(PlayableScps.Scp173), nameof(PlayableScps.Scp173.ServerKillPlayer))]
