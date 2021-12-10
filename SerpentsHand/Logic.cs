@@ -23,8 +23,6 @@ namespace SerpentsHand
             player.SetRole(RoleType.Tutorial);
             player.Broadcast(10, SerpentsHand.instance.Config.SpawnBroadcast);
 
-            Log.Info("Serpants count: " + shPlayers.Count);
-
             if (full)
             {
                 Timing.CallDelayed(1f, () =>
