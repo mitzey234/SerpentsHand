@@ -9,8 +9,9 @@ namespace SerpentsHand.Patches
 	{
 		public static bool Prefix(GameObject target)
 		{
-			if (target == null || Player.Get(target) == null) return true;
-			return !EventHandlers.shPlayers.Contains(Player.Get(target)) || (EventHandlers.shPlayers.Contains(Player.Get(target)) && SerpentsHand.instance.Config.FriendlyFire);
+			if (target == null || Player.Get(target) == null) return true; //fucking glass
+			Log.Info(!EventHandlers.shPlayers.Contains(Player.Get(target)) + " - " + (EventHandlers.shPlayers.Contains(Player.Get(target)) && SerpentsHand.instance.Config.FriendlyFire) + " - " + (EventHandlers.RoundEnded && EventHandlers.shPlayers.Contains(Player.Get(target)) && SerpentsHand.instance.Config.EndRoundFriendlyFire));
+			return !EventHandlers.shPlayers.Contains(Player.Get(target)) || (EventHandlers.shPlayers.Contains(Player.Get(target)) && SerpentsHand.instance.Config.FriendlyFire) || (EventHandlers.RoundEnded && EventHandlers.shPlayers.Contains(Player.Get(target)) && SerpentsHand.instance.Config.EndRoundFriendlyFire);
 		}
 	}
 

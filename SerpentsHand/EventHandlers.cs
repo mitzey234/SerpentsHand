@@ -206,7 +206,11 @@ namespace SerpentsHand
 
             if (shPlayers.Contains(ev.Target) && damageType == DamageTypes.Pocket) ev.IsAllowed = false;
 
-            if (SerpentsHand.instance.Config.EndRoundFriendlyFire && RoundEnded) SerpentsHand.FFGrants.Add(ev.Handler.Base.GetHashCode());
+            if (SerpentsHand.instance.Config.EndRoundFriendlyFire && RoundEnded)
+            {
+                ev.IsAllowed = true;
+                SerpentsHand.FFGrants.Add(ev.Handler.Base.GetHashCode());
+            }
         }
 
         public void OnPlayerDeath(DiedEventArgs ev)
@@ -290,6 +294,11 @@ namespace SerpentsHand
 
         public static bool RoundEnded = false;
 
+        public void OnRoundEnd (RoundEndedEventArgs ev)
+        {
+            RoundEnded = true;
+        }
+
         public void OnSetRole(ChangingRoleEventArgs ev)
         {
             if (shPlayers.Contains(ev.Player))
@@ -314,9 +323,9 @@ namespace SerpentsHand
 
             if (ev.Target != null && ev.Shooter != null)
             {
-                if (ev.Target.Team == Team.SCP && shPlayers.Contains(ev.Shooter) && !SerpentsHand.instance.Config.FriendlyFire) ev.CanHurt = false;
-                if (scp035s.Contains(ev.Target) && shPlayers.Contains(ev.Shooter) && !SerpentsHand.instance.Config.FriendlyFire) ev.CanHurt = false;
-                if (ev.Shooter.Team == Team.SCP && shPlayers.Contains(ev.Target) && !SerpentsHand.instance.Config.FriendlyFire) ev.CanHurt = false;
+                if (ev.Target.Team == Team.SCP && shPlayers.Contains(ev.Shooter) && !SerpentsHand.instance.Config.FriendlyFire && !(RoundEnded && SerpentsHand.instance.Config.EndRoundFriendlyFire)) ev.CanHurt = false;
+                if (scp035s.Contains(ev.Target) && shPlayers.Contains(ev.Shooter) && !SerpentsHand.instance.Config.FriendlyFire && !(RoundEnded && SerpentsHand.instance.Config.EndRoundFriendlyFire)) ev.CanHurt = false;
+                if (ev.Shooter.Team == Team.SCP && shPlayers.Contains(ev.Target) && !SerpentsHand.instance.Config.FriendlyFire && !(RoundEnded && SerpentsHand.instance.Config.EndRoundFriendlyFire)) ev.CanHurt = false;
             }
         }
 

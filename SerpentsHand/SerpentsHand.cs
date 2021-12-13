@@ -36,7 +36,8 @@ namespace SerpentsHand
             Exiled.Events.Handlers.Player.FailingEscapePocketDimension += EventHandlers.OnPocketDimensionDie;
             Exiled.Events.Handlers.Player.EscapingPocketDimension += EventHandlers.OnPocketDimensionExit;
             Exiled.Events.Handlers.Player.Hurting += EventHandlers.OnPlayerHurt;
-            Exiled.Events.Handlers.Server.EndingRound += EventHandlers.OnCheckRoundEnd;
+            //Exiled.Events.Handlers.Server.EndingRound += EventHandlers.OnCheckRoundEnd;
+            Exiled.Events.Handlers.Server.RoundEnded += EventHandlers.OnRoundEnd;
             Exiled.Events.Handlers.Player.ChangingRole += EventHandlers.OnSetRole;
             Exiled.Events.Handlers.Player.Left += EventHandlers.OnDisconnect;
             Exiled.Events.Handlers.Scp106.Containing += EventHandlers.OnContain106;
@@ -59,7 +60,8 @@ namespace SerpentsHand
             Exiled.Events.Handlers.Player.FailingEscapePocketDimension -= EventHandlers.OnPocketDimensionDie;
             Exiled.Events.Handlers.Player.EscapingPocketDimension -= EventHandlers.OnPocketDimensionExit;
             Exiled.Events.Handlers.Player.Hurting -= EventHandlers.OnPlayerHurt;
-            Exiled.Events.Handlers.Server.EndingRound -= EventHandlers.OnCheckRoundEnd;
+            //Exiled.Events.Handlers.Server.EndingRound -= EventHandlers.OnCheckRoundEnd;
+            Exiled.Events.Handlers.Server.RoundEnded -= EventHandlers.OnRoundEnd;
             Exiled.Events.Handlers.Player.ChangingRole -= EventHandlers.OnSetRole;
             Exiled.Events.Handlers.Player.Left -= EventHandlers.OnDisconnect;
             Exiled.Events.Handlers.Scp106.Containing -= EventHandlers.OnContain106;
