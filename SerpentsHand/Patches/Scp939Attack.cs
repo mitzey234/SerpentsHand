@@ -20,6 +20,7 @@ namespace SerpentsHand.Patches
 		public static bool Prefix(ReferenceHub target) => !EventHandlers.shPlayers.Contains(Player.Get(target)) || (EventHandlers.shPlayers.Contains(Player.Get(target)) && SerpentsHand.instance.Config.FriendlyFire) || (EventHandlers.RoundEnded && SerpentsHand.instance.Config.EndRoundFriendlyFire);
 	}
 
+	/*
 	[HarmonyPatch(typeof(PlayableScps.Scp173), nameof(PlayableScps.Scp173.UpdateObservers))]
 	class Scp173LookingPatch
 	{
@@ -29,6 +30,7 @@ namespace SerpentsHand.Patches
 			__instance._isObserved = (__instance._observingPlayers.Count > 0 || __instance.StareAtDuration > 0f);
 		}
 	}
+	*/
 
 	[HarmonyPatch(typeof(PlayerStatsSystem.AttackerDamageHandler), nameof(PlayerStatsSystem.AttackerDamageHandler.ProcessDamage))]
 	class FriendlyFirePatch

@@ -15,11 +15,13 @@ namespace SerpentsHand
 
         public static bool isScp035 = false;
 
+        private bool state = false;
+
         public static List<int> FFGrants = new List<int>();
 
         public override void OnEnabled()
         {
-            base.OnEnabled();
+            if (state) return;
 
             if (!Config.IsEnabled) return;
 
@@ -48,11 +50,13 @@ namespace SerpentsHand
             Exiled.Events.Handlers.Player.Shot += EventHandlers.OnShoot;
             Exiled.Events.Handlers.Player.Spawning += EventHandlers.OnSpawning;
             Exiled.Events.Handlers.Server.RestartingRound += EventHandlers.OnRoundRestart;
+
+            state = true;
+            base.OnEnabled();
         }
 
         public override void OnDisabled()
         {
-            base.OnDisabled();
 
             Exiled.Events.Handlers.Server.RoundStarted -= EventHandlers.OnRoundStart;
             Exiled.Events.Handlers.Server.RespawningTeam -= EventHandlers.OnTeamRespawn;
@@ -73,8 +77,11 @@ namespace SerpentsHand
             Exiled.Events.Handlers.Player.Spawning -= EventHandlers.OnSpawning;
             Exiled.Events.Handlers.Server.RestartingRound -= EventHandlers.OnRoundRestart;
 
-            hInstance.UnpatchAll();
+            hInstance.UnpatchAll(hInstance.Id);
             EventHandlers = null;
+
+            state = true;
+            base.OnDisabled();
         }
 
         public override string Name => "SerpentsHand";
