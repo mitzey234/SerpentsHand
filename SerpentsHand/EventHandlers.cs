@@ -311,7 +311,7 @@ namespace SerpentsHand
                 }
                 else
                 {
-                    ev.Player.CustomInfo = "<color=#00FF58>Serpents Hand</color>";
+                    ev.Player.CustomInfo = "Serpents Hand";
                     ev.Player.ReferenceHub.nicknameSync.ShownPlayerInfo &= ~PlayerInfoArea.Role;
                 }
             }
