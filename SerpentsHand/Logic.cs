@@ -65,7 +65,7 @@ namespace SerpentsHand
 
             foreach (Player player in pList)
             {
-                if (player.Team == Team.RIP)
+                if (player.Role.Team == Team.RIP)
                 {
                     spec.Add(player);
                 }
@@ -135,7 +135,7 @@ namespace SerpentsHand
             int count = 0;
             foreach (Player pl in Player.List)
             {
-                if (pl.Team == team)
+                if (pl.Role.Team == team)
                 {
                     if (scp035 != null && scp035.Select(s=>s.Id).ToList().Contains(pl.Id)) continue;
                     count++;

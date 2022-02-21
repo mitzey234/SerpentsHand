@@ -33,7 +33,7 @@ namespace SerpentsHand
 
         public void OnTeamRespawn(RespawningTeamEventArgs ev)
         {
-            int numScps = Player.List.Count(p => p.Team == Team.SCP && (p.Role != RoleType.Scp0492 ||
+            int numScps = Player.List.Count(p => p.Role.Team == Team.SCP && (p.Role != RoleType.Scp0492 ||
                 (p.SessionVariables.ContainsKey("is966") && (bool)p.SessionVariables["is966"])));
             if (serpentsRespawnCount < SerpentsHand.instance.Config.MaxSpawns &&
                 teamRespawnCount >= SerpentsHand.instance.Config.RespawnDelay &&
@@ -200,8 +200,8 @@ namespace SerpentsHand
                 scp035 = new List<Player>();
             }
 
-            if (((shPlayers.Contains(ev.Target) && (ev.Attacker.Team == Team.SCP || damageType == DamageTypes.Pocket)) ||
-                (shPlayers.Contains(ev.Attacker) && (ev.Target.Team == Team.SCP || (scp035 != null && scp035.Select(s => s.Id).ToList().Contains(ev.Target.Id)))) ||
+            if (((shPlayers.Contains(ev.Target) && (ev.Attacker.Role.Team == Team.SCP || damageType == DamageTypes.Pocket)) ||
+                (shPlayers.Contains(ev.Attacker) && (ev.Target.Role.Team == Team.SCP || (scp035 != null && scp035.Select(s => s.Id).ToList().Contains(ev.Target.Id)))) ||
                 (shPlayers.Contains(ev.Target) && shPlayers.Contains(ev.Attacker) && ev.Target != ev.Attacker)) && !SerpentsHand.instance.Config.FriendlyFire) ev.IsAllowed = false;
 
             if (shPlayers.Contains(ev.Target) && damageType == DamageTypes.Pocket) ev.IsAllowed = false;
@@ -323,9 +323,9 @@ namespace SerpentsHand
 
             if (ev.Target != null && ev.Shooter != null)
             {
-                if (ev.Target.Team == Team.SCP && shPlayers.Contains(ev.Shooter) && !SerpentsHand.instance.Config.FriendlyFire && !(RoundEnded && SerpentsHand.instance.Config.EndRoundFriendlyFire)) ev.CanHurt = false;
+                if (ev.Target.Role.Team == Team.SCP && shPlayers.Contains(ev.Shooter) && !SerpentsHand.instance.Config.FriendlyFire && !(RoundEnded && SerpentsHand.instance.Config.EndRoundFriendlyFire)) ev.CanHurt = false;
                 if (scp035s.Contains(ev.Target) && shPlayers.Contains(ev.Shooter) && !SerpentsHand.instance.Config.FriendlyFire && !(RoundEnded && SerpentsHand.instance.Config.EndRoundFriendlyFire)) ev.CanHurt = false;
-                if (ev.Shooter.Team == Team.SCP && shPlayers.Contains(ev.Target) && !SerpentsHand.instance.Config.FriendlyFire && !(RoundEnded && SerpentsHand.instance.Config.EndRoundFriendlyFire)) ev.CanHurt = false;
+                if (ev.Shooter.Role.Team == Team.SCP && shPlayers.Contains(ev.Target) && !SerpentsHand.instance.Config.FriendlyFire && !(RoundEnded && SerpentsHand.instance.Config.EndRoundFriendlyFire)) ev.CanHurt = false;
             }
         }
 
