@@ -75,7 +75,7 @@
       <HintPath>..\packages\EXILED.5.0.0-beta.2\lib\net472\Exiled.Updater.dll</HintPath>
     </Reference>
     <Reference Include="Mirror">
-      <HintPath>..\..\GamemodeManagerRedux\TestPloogin\bin\Release\Mirror.dll</HintPath>
+      <HintPath>..\..\..\..\Desktop\scpsls\SCPSL_Data\Managed\Mirror.dll</HintPath>
     </Reference>
     <Reference Include="NorthwoodLib, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\EXILED.5.0.0-beta.2\lib\net472\NorthwoodLib.dll</HintPath>

@@ -3,17 +3,16 @@ using System.Linq;
 using Exiled.API.Features;
 using MEC;
 using Exiled.API.Extensions;
+using Exiled.API.Enums;
+using Exiled.API.Features.Items;
+using Exiled.API.Interfaces;
+using Exiled.Loader;
+using InventorySystem.Items.Firearms.Attachments;
+using System;
+using System.Reflection;
 
 namespace SerpentsHand
 {
-    using Exiled.API.Enums;
-	using Exiled.API.Features.Items;
-    using Exiled.API.Interfaces;
-    using Exiled.Loader;
-	using InventorySystem.Items.Firearms.Attachments;
-    using System;
-    using System.Reflection;
-
 	partial class EventHandlers
     {
         internal static void SpawnPlayer(Player player, bool full = true)
