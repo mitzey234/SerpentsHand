@@ -31,6 +31,11 @@ namespace SerpentsHand
             serpentsRespawnCount = 0;
         }
 
+        public void OnTantrum(WalkingOnTantrumEventArgs ev)
+		{
+            if (shPlayers.Contains(ev.Player)) ev.IsAllowed = false;
+		}
+
         public void OnTeamRespawn(RespawningTeamEventArgs ev)
         {
             int numScps = Player.List.Count(p => p.Role.Team == Team.SCP && (p.Role != RoleType.Scp0492 ||

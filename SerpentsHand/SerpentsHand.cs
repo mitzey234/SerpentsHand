@@ -50,6 +50,7 @@ namespace SerpentsHand
             Exiled.Events.Handlers.Player.Shot += EventHandlers.OnShoot;
             Exiled.Events.Handlers.Player.Spawning += EventHandlers.OnSpawning;
             Exiled.Events.Handlers.Server.RestartingRound += EventHandlers.OnRoundRestart;
+            Exiled.Events.Handlers.Player.WalkingOnTantrum += EventHandlers.OnTantrum;
 
             state = true;
             base.OnEnabled();
@@ -76,6 +77,7 @@ namespace SerpentsHand
             Exiled.Events.Handlers.Player.Shot -= EventHandlers.OnShoot;
             Exiled.Events.Handlers.Player.Spawning -= EventHandlers.OnSpawning;
             Exiled.Events.Handlers.Server.RestartingRound -= EventHandlers.OnRoundRestart;
+            Exiled.Events.Handlers.Player.WalkingOnTantrum -= EventHandlers.OnTantrum;
 
             hInstance.UnpatchAll(hInstance.Id);
             EventHandlers = null;
