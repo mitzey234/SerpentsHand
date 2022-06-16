@@ -16,7 +16,10 @@ namespace SerpentsHand
         private int teamRespawnCount = 0;
         private int serpentsRespawnCount = 0;
 
+        internal List<Player> spawnProtectPlayers = new List<Player>();
         public static List<Player> shPlayers = new List<Player>();
+
+        internal static List<CoroutineHandle> coroutines = new List<CoroutineHandle>();
 
         private static System.Random rand = new System.Random();
 
@@ -29,6 +32,7 @@ namespace SerpentsHand
             shPocketPlayers.Clear();
             teamRespawnCount = 0;
             serpentsRespawnCount = 0;
+            spawnProtectPlayers.Clear();
         }
 
         public void OnTantrum(WalkingOnTantrumEventArgs ev)
@@ -64,6 +68,15 @@ namespace SerpentsHand
                         CIPlayers.Remove(player);
                     }
                     Timing.CallDelayed(0.1f, () => SpawnSquad(SHPlayers));
+
+                    foreach (Player player in SHPlayers)
+                    {
+                        spawnProtectPlayers.Add(player);
+                    }
+                    coroutines.Add(Timing.CallDelayed(4f, () =>
+                    {
+                        spawnProtectPlayers.Clear();
+                    }));
 
                     serpentsRespawnCount++;
                 }
@@ -215,6 +228,11 @@ namespace SerpentsHand
             {
                 ev.IsAllowed = true;
                 SerpentsHand.FFGrants.Add(ev.Handler.Base.GetHashCode());
+            }
+
+            if (spawnProtectPlayers.Contains(ev.Target) && (damageType == DamageTypes.Grenade || damageType == DamageTypes.MicroHID))
+            {
+                ev.IsAllowed = false;
             }
         }
 
