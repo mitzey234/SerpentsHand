@@ -222,9 +222,7 @@ namespace SerpentsHand
         {
             if (shPlayers.Contains(ev.Target))
             {
-                ev.Target.CustomInfo = string.Empty;
-                ev.Target.ReferenceHub.nicknameSync.ShownPlayerInfo |= PlayerInfoArea.Role;
-                shPlayers.Remove(ev.Target);
+                KillSH(ev.Target);
             }
 
             if (ev.Target.Role == RoleType.Scp106 && !SerpentsHand.instance.Config.FriendlyFire)
@@ -310,9 +308,7 @@ namespace SerpentsHand
             {
                 if (ev.NewRole.GetTeam() != Team.TUT)
                 {
-                    shPlayers.Remove(ev.Player);
-                    ev.Player.CustomInfo = string.Empty;
-                    ev.Player.ReferenceHub.nicknameSync.ShownPlayerInfo |= PlayerInfoArea.Role;
+                    KillSH(ev.Player);
                 }
                 else
                 {
@@ -342,10 +338,8 @@ namespace SerpentsHand
         public void OnDisconnect(LeftEventArgs ev)
         {
             if (shPlayers.Contains(ev.Player))
-            {
-                shPlayers.Remove(ev.Player);
-                ev.Player.CustomInfo = string.Empty;
-                ev.Player.ReferenceHub.nicknameSync.ShownPlayerInfo |= PlayerInfoArea.Role;
+			{
+                KillSH(ev.Player);
             }
         }
 

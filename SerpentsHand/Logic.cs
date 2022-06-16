@@ -22,6 +22,9 @@ namespace SerpentsHand
             player.SetRole(RoleType.Tutorial);
             player.Broadcast(10, SerpentsHand.instance.Config.SpawnBroadcast);
 
+            if (!Scp173.TurnedPlayers.Contains(player)) Scp173.TurnedPlayers.Add(player);
+            if (!Scp096.TurnedPlayers.Contains(player)) Scp096.TurnedPlayers.Add(player);
+
             if (full)
             {
                 Timing.CallDelayed(1f, () =>
@@ -154,6 +157,15 @@ namespace SerpentsHand
             {
                 player.Position = RoleType.Scp096.GetRandomSpawnProperties().Item1;
             }
+        }
+
+        private void KillSH(Player player)
+		{
+            shPlayers.Remove(player);
+            player.CustomInfo = string.Empty;
+            player.ReferenceHub.nicknameSync.ShownPlayerInfo |= PlayerInfoArea.Role;
+            if (Scp173.TurnedPlayers.Contains(player)) Scp173.TurnedPlayers.Remove(player);
+            if (Scp096.TurnedPlayers.Contains(player)) Scp096.TurnedPlayers.Remove(player);
         }
     }
 }
