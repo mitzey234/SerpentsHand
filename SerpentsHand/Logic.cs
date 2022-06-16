@@ -161,6 +161,7 @@ namespace SerpentsHand
 
         private void KillSH(Player player)
 		{
+            Log.Warn("killing");
             shPlayers.Remove(player);
             player.CustomInfo = string.Empty;
             player.ReferenceHub.nicknameSync.ShownPlayerInfo |= PlayerInfoArea.Role;
